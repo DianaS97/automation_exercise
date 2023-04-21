@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.ActionUtil;
 
@@ -21,8 +22,11 @@ public class CheckoutPage {
     @FindBy(xpath = "//button[@id='cancel']")
     private WebElement cancelButton;
 
-    @FindBy(xpath = "//button[@id='continue']")
+    @FindBy(xpath = "//input[@id='continue']")
     private WebElement continueButton;
+
+    @FindBy(xpath = "//button[@id='continue-shopping']")
+    private WebElement continueShoppingButton;
 
     @FindBy(xpath = "//button[@class='btn btn_secondary btn_small cart_button' and contains(text(), 'Remove')]")
     private WebElement removeButton; //contains all remove buttons
@@ -32,6 +36,9 @@ public class CheckoutPage {
 
     @FindBy(xpath = "//button[@id='back-to-products']")
     private WebElement backHomeButton;
+
+    @FindBy(xpath = "//button[@id='checkout']")
+    private WebElement checkoutButton;
 
 
 
@@ -99,6 +106,69 @@ public class CheckoutPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(ActionUtil.DEFAULT_TIMEOUT));
         PageFactory.initElements(driver, this);
     }
+
+    public void selectContinueShoppingButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(continueShoppingButton));
+        continueShoppingButton.click();
+    }
+
+    public void clickOnCheckoutButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(checkoutButton));
+        checkoutButton.click();
+    }
+
+    public void clickOnContinueButton(){
+        wait.until(ExpectedConditions.visibilityOf(continueButton));
+        continueButton.click();
+    }
+
+    public void insertValidData(String firstName, String lastName, String postalCode){
+        wait.until(ExpectedConditions.elementToBeClickable(firstNameFieldElement));
+        firstNameFieldElement.sendKeys(firstName);
+        lastNameFieldElement.sendKeys(lastName);
+        postalCodeFieldElement.sendKeys(postalCode);
+    }
+
+    public void clickOnFinishButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(finishButton));
+        finishButton.click();
+    }
+
+    public void clickOnBackHomeButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(backHomeButton));
+        backHomeButton.click();
+    }
+
+    public String getCompleteOrderMessageTitle() {
+        wait.until(ExpectedConditions.elementToBeClickable(thankYouForYourOrderTitleElement));
+        return thankYouForYourOrderTitleElement.getText();
+    }
+
+    public String getCompleteOrderMessageDescription() {
+        wait.until(ExpectedConditions.elementToBeClickable(completeOrderMessageElement));
+        return completeOrderMessageElement.getText();
+    }
+
+    public boolean getCompleteOrderImage() {
+        wait.until(ExpectedConditions.elementToBeClickable(completeImageElement));
+        return completeImageElement.isDisplayed();
+    }
+
+    public String getPageTitleHeaderText(){
+        wait.until(ExpectedConditions.elementToBeClickable(pageHeaderTitleElement));
+        return pageHeaderTitleElement.getText();
+    }
+
+    public void clickOnCancelButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(cancelButton));
+        cancelButton.click();
+    }
+
+    public void clickOnContinueShoppingButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(continueShoppingButton));
+        continueShoppingButton.click();
+    }
+
 
 
 }

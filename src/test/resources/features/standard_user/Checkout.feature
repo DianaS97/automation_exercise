@@ -7,7 +7,7 @@ Feature: Checkout Pages
 
 
   Scenario: Check the 'Remove' button functionality
-    Given Add an item to the cart from the Main Page
+    Given Click on "Sauce Labs Bike Light" item title
     When Click on 'Remove' button
     And Add 2 items from the Main Page
     And Click on the cart
@@ -15,24 +15,23 @@ Feature: Checkout Pages
     Then Verify that the item has been removed
 
   Scenario: Check the 'Continue Shopping' button functionality
-    Given Add an item to the cart from the Main Page
+    Given Click on "Sauce Labs Bike Light" item title
     When Click on the cart
-    Then Click on 'Continue Shopping' button
+    Then Click on 'Continue Shopping' button to go back to "Products" Page
 
 
+  Scenario: Check the 'Cancel' button functionality
+    Given Click on "Sauce Labs Bike Light" item title
+    When Click on the cart
+    And Proceed to checkout
+    Then Click on 'Cancel' button to go back to 'Your Cart' Page
 
-    Scenario: Check the 'Cancel' button functionality
-      Given Add an item to the cart from the Main Page
-      When Click on the cart
-      And Proceed to checkout
-      And Click on 'Cancel' button to go back to 'Your Cart' Page
 
-
-      Scenario: Checkout Overview
-        Given Add an item to the cart from the Main Page
-        When Click on the cart
-        And Proceed to checkout
-        And Insert the following data in the form: "Diana", "Sintamarian", "400682"
-        And Click on 'Continue'
-        Then Verify the Items information in the Checkout Overview: QTY, Description, Title of the item, Description of the item, Item's Price
-        Then Verify the Summary Info: Payment Information, Shipping Information, Price Total, Total
+  Scenario: Checkout Overview
+    Given Click on "Sauce Labs Bike Light" item title
+    When Click on the cart
+    And Proceed to checkout
+    And Insert the following data in the form: "Diana", "Sintamarian", "400682"
+    And Click on 'Continue'
+    Then Verify the Items information in the Checkout Overview: QTY, Description, Title of the item, Description of the item, Item's Price are present
+    Then Verify the Summary Info: Payment Information, Shipping Information, Price Total, Total are present

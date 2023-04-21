@@ -10,16 +10,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.ActionUtil;
 
 import java.time.Duration;
+import java.util.List;
 
-public class InventoryPage {
+public class ProductsPage {
 
     WebDriverWait wait;
 
-    ActionUtil actionUtil;
 
     @FindBy(xpath = "//button[@class='btn btn_primary btn_small btn_inventory']")
-    private WebElement addToCartElement; //Triggers all elements
+    private WebElement addToCartButtonElement; //Triggers all elements
 
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    private WebElement clickOnCartElement;
+
+    @FindBy(xpath = "//span[@class='shopping_cart_badge']")
+    private WebElement shoppingCartBadgeAssertElement;
+
+    @FindBy(xpath = "//div[@class='inventory_item_name']")
+    private List<WebElement> inventoryItemNameElements;
+
+    //List<WebElement>
 
     //Select one item from Products: Sauce Labs Bike Light
     @FindBy(xpath = "//a[@id='item_0_title_link']")
@@ -43,7 +53,6 @@ public class InventoryPage {
     private WebElement backToProductsButton;
 
 
-
     //Sorting elements
 
     //Select the dropdown
@@ -54,7 +63,7 @@ public class InventoryPage {
     private WebElement activeOptionElement;
 
 
-    public InventoryPage(WebDriver driver) {
+    public ProductsPage(WebDriver driver) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(ActionUtil.DEFAULT_TIMEOUT));
         PageFactory.initElements(driver, this);
     }
@@ -66,14 +75,42 @@ public class InventoryPage {
         selectLocation.selectByVisibleText(text);
     }
 
-    /*public String verifyTheActiveOption() {
-        wait.until(ExpectedConditions.visibilityOf(activeOptionElement));
-        return actionUtil.getAttributeValue(activeOptionElement, "active-option");
-    }*/
 
-    public String getActiveOptionText(){
+    public String getActiveOptionText() {
         wait.until(ExpectedConditions.elementToBeClickable(activeOptionElement));
         return activeOptionElement.getText();
     }
+
+
+    public void selectAnItem(String value) {
+        for (WebElement item : inventoryItemNameElements) {
+            if (item.getText().equals(value)) {
+                item.click();
+                break;
+            }
+        }
+    }
+
+    public void addTheItemToTheCart(){
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonElement));
+        addToCartButtonElement.click();
+    }
+
+
+    public String getAddedItemBadgeText() {
+        wait.until(ExpectedConditions.elementToBeClickable(shoppingCartBadgeAssertElement));
+        return shoppingCartBadgeAssertElement.getText();
+    }
+
+    public void clickOnTheCart(){
+        wait.until(ExpectedConditions.elementToBeClickable(clickOnCartElement));
+        clickOnCartElement.click();
+    }
+
+    public void clickOnBackToProductsButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(backToProductsButton));
+        backToProductsButton.click();
+    }
+
 
 }

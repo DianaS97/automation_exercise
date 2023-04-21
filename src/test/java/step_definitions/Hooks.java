@@ -49,9 +49,9 @@ public class Hooks extends Driver {
         }
     }
 
-    @After(order = 0)
+    /*@After(order = 0)
         public void quitDriver() {
           driver.getDriver().quit();
-        }
+        }*/
 }
 
