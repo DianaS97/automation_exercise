@@ -63,6 +63,8 @@ Feature: Inventory Page
     And Proceed to checkout
     And Insert the following data in the form: "FirstNameTest", "LastNameTest", "400682"
     And Click on 'Continue'
+    Then Click on 'Finish' and check the "Thank you for your order!" order title message and "Your order has been dispatched, and will arrive just as fast as the pony can get there!" order description message
+    Then Click on 'Back Home' and verify that the user is on "Products" Page
 
 
 

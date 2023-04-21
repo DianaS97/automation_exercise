@@ -54,6 +54,24 @@ public class CheckoutSteps extends Driver {
         checkoutPage.insertValidData(firstName, lastName, postalCode);
     }
 
+    @And("Insert data in the First Name and Postal Code fields: {string}, {string}")
+    public void insertFirstNameAndPostalCode(String firstName, String postalCode){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        checkoutPage.insertInvalidDataLastNameMissing(firstName, postalCode);
+    }
+
+    @And("Insert data in the First Name and Last Name fields: {string}, {string}")
+    public void insertDataInFirstNameAndLastName(String firstName, String lastName){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        checkoutPage.insertInvalidDataPostalCodeMissing(firstName, lastName);
+    }
+
+    @And("Insert data in the Last Name and Postal Code fields: {string}, {string}")
+    public void insertDataInLastNameAndPostalCode(String lastName, String postalCode){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        checkoutPage.insertInvalidDataFirstNameMissing(lastName, postalCode);
+    }
+
     @And("Click on 'Finish' and check the {string} order title message and {string} order description message")
     public void clickOnFinish(String titleAssert, String messageAssert){
         checkoutPage = new CheckoutPage(driver.getDriver());
@@ -68,5 +86,20 @@ public class CheckoutSteps extends Driver {
         checkoutPage = new CheckoutPage(driver.getDriver());
         checkoutPage.clickOnBackHomeButton();
         Assert.assertTrue(checkoutPage.getPageTitleHeaderText().contains(titlePageAssert));
+    }
+
+    @And("Verify the Summary Info: {string}, {string}, {string}, {string} are present")
+    public void verifySummaryInfo(String paymentInformationLabel, String shippingInformationLabel, String priceTotalLabel, String totalLabel){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(paymentInformationLabel));
+        Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(shippingInformationLabel));
+        Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(priceTotalLabel));
+        Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(totalLabel));
+    }
+
+    @And("Verify that the {string} error message is displayed")
+    public void checkErrorMessage(String errorText){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        Assert.assertTrue(checkoutPage.getTheErrorMessageText().contains(errorText));
     }
 }

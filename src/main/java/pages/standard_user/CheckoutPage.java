@@ -60,11 +60,9 @@ public class CheckoutPage {
     private WebElement priceItemElement;
 
     //Verify the Summary Info: Payment Information, Shipping Information, Price Total, Total
-    @FindBy(xpath = "//div[@class='summary_info_label']")   //Payment Title, Shipping Title, Price Total Title
-    private WebElement labelElement;
 
-    @FindBy(xpath = "//div[@class='summary_value_label']")  //Payment value, Shipping value
-    private WebElement valueElement;
+    @FindBy(xpath = "//div[@class='summary_info']")
+    private WebElement summaryInfoBoxElement;
 
 
     @FindBy(xpath = "//div[@class='summary_subtotal_label']")
@@ -129,6 +127,24 @@ public class CheckoutPage {
         postalCodeFieldElement.sendKeys(postalCode);
     }
 
+    public void insertInvalidDataLastNameMissing(String firstName, String postalCode){
+        wait.until(ExpectedConditions.elementToBeClickable(firstNameFieldElement));
+        firstNameFieldElement.sendKeys(firstName);
+        postalCodeFieldElement.sendKeys(postalCode);
+    }
+
+    public void insertInvalidDataPostalCodeMissing(String firstName, String lastName){
+        wait.until(ExpectedConditions.elementToBeClickable(firstNameFieldElement));
+        firstNameFieldElement.sendKeys(firstName);
+        lastNameFieldElement.sendKeys(lastName);
+    }
+
+    public void insertInvalidDataFirstNameMissing(String lastName, String postalCode){
+        wait.until(ExpectedConditions.elementToBeClickable(lastNameFieldElement));
+        lastNameFieldElement.sendKeys(lastName);
+        postalCodeFieldElement.sendKeys(postalCode);
+    }
+
     public void clickOnFinishButton(){
         wait.until(ExpectedConditions.elementToBeClickable(finishButton));
         finishButton.click();
@@ -169,6 +185,17 @@ public class CheckoutPage {
         continueShoppingButton.click();
     }
 
+
+    public String getSummaryInfoText(){
+        wait.until(ExpectedConditions.visibilityOf(summaryInfoBoxElement));
+        return summaryInfoBoxElement.getText();
+    }
+
+
+    public String getTheErrorMessageText(){
+        wait.until(ExpectedConditions.visibilityOf(errorMessageElement));
+        return errorMessageElement.getText();
+    }
 
 
 }
