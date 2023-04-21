@@ -36,7 +36,7 @@ Feature: Inventory Page
     And Insert the following data in the form: "Diana", "Sintamarian", "400682"
     And Click on 'Continue'
     #Then Verify the Items information in the Checkout Overview: QTY, Description, Title of the item, Description of the item, Item's Price are present
-    #Then Verify the Summary Info: Payment Information, Shipping Information, Price Total, Total are present
+    Then Verify the Summary Info: "Payment Information", "Shipping Information", "Price Total", "Total" are present
     Then Click on 'Finish' and check the "Thank you for your order!" order title message and "Your order has been dispatched, and will arrive just as fast as the pony can get there!" order description message
     Then Click on 'Back Home' and verify that the user is on "Products" Page
 

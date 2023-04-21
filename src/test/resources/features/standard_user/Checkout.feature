@@ -49,7 +49,7 @@ Feature: Checkout Pages
     When Click on Add Button and verify that "1" items have been added
     And Click on the cart
     And Proceed to checkout
-      #The form is empty
+      #The form is empty, no data has been entered
     And Click on 'Continue'
     Then Verify that the "Error: First Name is required" error message is displayed
 
@@ -71,7 +71,7 @@ Feature: Checkout Pages
     And Click on 'Continue'
     Then Verify that the "Error: Last Name is required" error message is displayed
 
-  Scenario: An error message is displayed when the user does not enter the Last Name
+  Scenario: An error message is displayed when the user does not enter the Postal Code
     Given Click on "Sauce Labs Onesie" item title
     When Click on Add Button and verify that "1" items have been added
     And Click on the cart
