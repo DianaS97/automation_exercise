@@ -102,4 +102,13 @@ public class CheckoutSteps extends Driver {
         checkoutPage = new CheckoutPage(driver.getDriver());
         Assert.assertTrue(checkoutPage.getTheErrorMessageText().contains(errorText));
     }
+
+    @And("Click on 'Remove' button")
+    public void clickOnRemove(){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        checkoutPage.clickOnRemoveButton();
+    }
+
+
+
 }

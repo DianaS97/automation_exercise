@@ -4,13 +4,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import managers.Driver;
 import org.testng.Assert;
-import pages.standard_user.CheckoutPage;
 import pages.standard_user.ProductsPage;
 
 public class ProductsPageSteps extends Driver {
 
     Driver driver;
-    ProductsPage inventoryPage;
+    ProductsPage productsPage;
 
 
     public ProductsPageSteps(Driver driver) {
@@ -19,36 +18,52 @@ public class ProductsPageSteps extends Driver {
 
     @And("Sort the items by {string}")
     public void sortTheItems(String value) {
-        inventoryPage = new ProductsPage(driver.getDriver());
-        inventoryPage.selectTheSortingDropDown(value);
-        Assert.assertTrue(inventoryPage.getActiveOptionText().contains(value));
+        productsPage = new ProductsPage(driver.getDriver());
+        productsPage.selectTheSortingDropDown(value);
+        Assert.assertTrue(productsPage.getActiveOptionText().contains(value));
     }
 
     @Given("Click on {string} item title")
     public void clickOnStringItem(String value) {
-        inventoryPage = new ProductsPage(driver.getDriver());
-        inventoryPage.selectAnItem(value);
+        productsPage = new ProductsPage(driver.getDriver());
+        productsPage.selectAnItem(value);
     }
 
     @And("Click on Add Button and verify that {string} items have been added")
     public void clickOnAddToCart(String value){
-        inventoryPage = new ProductsPage(driver.getDriver());
-        inventoryPage.addTheItemToTheCart();
-        Assert.assertTrue(inventoryPage.getAddedItemBadgeText().contains(value));
+        productsPage = new ProductsPage(driver.getDriver());
+        productsPage.addTheItemToTheCart();
+        Assert.assertTrue(productsPage.getAddedItemBadgeText().contains(value));
     }
 
     @And("Click on the cart")
     public void clickOnTheCart(){
-        inventoryPage = new ProductsPage(driver.getDriver());
-        inventoryPage.clickOnTheCart();
+        productsPage = new ProductsPage(driver.getDriver());
+        productsPage.clickOnTheCart();
     }
 
     @And("Select 'Back to products' button")
     public void clickOnBackToProducts(){
-        inventoryPage = new ProductsPage(driver.getDriver());
-        inventoryPage.clickOnBackToProductsButton();
+        productsPage = new ProductsPage(driver.getDriver());
+        productsPage.clickOnBackToProductsButton();
     }
 
+    @And("Verify that the cart is empty")
+    public void verifyTheEmptyCart(){
+        productsPage = new ProductsPage(driver.getDriver());
+        Assert.assertTrue(productsPage.getShoppingCartBadgeEmpty().isEmpty());
+    }
 
+    @And("Add {string} item to the cart from Products Page")
+    public void addAnItemFromProductsPage(String text){
+        productsPage = new ProductsPage(driver.getDriver());
+        productsPage.addAnItem(text);
+    }
+
+    @And("Click on 'Remove' button for {string} item")
+    public void clickOnRemoveButtonFromProductsPage(){
+        productsPage = new ProductsPage(driver.getDriver());
+
+    }
 
 }

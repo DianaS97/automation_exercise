@@ -1,5 +1,6 @@
 package pages.standard_user;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,9 @@ public class ProductsPage {
 
 
     @FindBy(xpath = "//button[@class='btn btn_primary btn_small btn_inventory']")
+    private List<WebElement> addToCartButtonListElements;
+
+    @FindBy(xpath = "//button[@class='btn btn_primary btn_small btn_inventory']")
     private WebElement addToCartButtonElement; //Triggers all elements
 
     @FindBy(xpath = "//a[@class='shopping_cart_link']")
@@ -25,6 +29,9 @@ public class ProductsPage {
 
     @FindBy(xpath = "//span[@class='shopping_cart_badge']")
     private WebElement shoppingCartBadgeAssertElement;
+
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    private WebElement shoppingCartBadgeEmptyAssertElement;
 
     @FindBy(xpath = "//div[@class='inventory_item_name']")
     private List<WebElement> inventoryItemNameElements;
@@ -111,6 +118,49 @@ public class ProductsPage {
         wait.until(ExpectedConditions.elementToBeClickable(backToProductsButton));
         backToProductsButton.click();
     }
+
+    public String getShoppingCartBadgeEmpty(){
+        wait.until(ExpectedConditions.visibilityOf(shoppingCartBadgeEmptyAssertElement));
+        return shoppingCartBadgeEmptyAssertElement.getText();
+    }
+
+
+    /*public void addAnItem(String value) {
+        for (WebElement item : inventoryItemNameElements) {
+            if (item.getText().contains(value)) {
+                wait.until(ExpectedConditions.elementToBeClickable(item));
+                item.click();
+                wait.until(ExpectedConditions.attributeContains(item, "class", "Add-to-cart"));
+
+                break;
+            }
+        }
+    }*/
+
+    public void addAnItem(String text) {
+        List<WebElement> items = inventoryItemNameElements;
+        for (WebElement item : items) {
+            // locate the item element
+
+            if (items.equals(text)) {
+                // locate add to cart button
+                item.findElement(By.xpath("//div[@class='inventory_item_label']/following-sibling::div[@class='pricebar']/button[text()='Add to cart']")).click();
+                System.out.println(item);
+                System.out.println("clicked add to cart");
+                break;
+            }
+        }
+    }
+
+    /*public void addAnItem(String value) {
+        for (WebElement item : inventoryItemNameElements) {
+            if (item.getText().equals(value)) {
+                item.findElement(By.xpath("//div[@class='inventory_item_label']/following-sibling::div[@class='pricebar']/button[text()='Add to cart']")).click();
+                break;
+            }
+        }
+    }*/
+
 
 
 }

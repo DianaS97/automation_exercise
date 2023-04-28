@@ -6,15 +6,21 @@ Feature: Checkout Pages
     Then Click on the 'Login' button
 
 
-  Scenario: Check the 'Remove' button functionality
+  Scenario: Check the 'Remove' button functionality for 1 product in the cart
     Given Click on "Sauce Labs Onesie" item title
     When Click on Add Button and verify that "1" items have been added
     And Click on the cart
-    When Click on 'Remove' button
-    And Add 2 items from the Main Page
-    And Click on the cart
-    Then Click on 'Remove' button
-    Then Verify that the item has been removed
+    And Click on 'Remove' button
+    Then Verify that the cart is empty
+
+
+  Scenario: Check the 'Remove' button functionality for 1 product in Products menu
+    Given Add "Sauce Labs Onesie" item to the cart from Products Page
+    #Needs improvement
+    When Click on Add Button and verify that "1" items have been added
+    #And Click on 'Remove' button for "Sauce Labs Onesie" item -in progress
+    Then Verify that the cart is empty
+
 
   Scenario: Check the 'Continue Shopping' button functionality
     Given Click on "Sauce Labs Onesie" item title
@@ -40,7 +46,7 @@ Feature: Checkout Pages
     And Proceed to checkout
     And Insert the following data in the form: "Diana", "Sintamarian", "400682"
     And Click on 'Continue'
-    #Then Verify the Items information in the Checkout Overview: QTY, Description, Title of the item, Description of the item, Item's Price are present
+    #Then Verify the Items information in the Checkout Overview: QTY, Description, Title of the item, Description of the item, Item's Price are present -WIP
     Then Verify the Summary Info: "Payment Information", "Shipping Information", "Price Total", "Total" are present
 
 
@@ -49,9 +55,10 @@ Feature: Checkout Pages
     When Click on Add Button and verify that "1" items have been added
     And Click on the cart
     And Proceed to checkout
-      #The form is empty, no data has been entered
+      #The form is empty, no data has been entered -WIP
     And Click on 'Continue'
     Then Verify that the "Error: First Name is required" error message is displayed
+
 
   Scenario: An error message is displayed when the First Name fields is not filled
     Given Click on "Sauce Labs Onesie" item title
@@ -62,6 +69,7 @@ Feature: Checkout Pages
     And Click on 'Continue'
     Then Verify that the "Error: First Name is required" error message is displayed
 
+
   Scenario: An error message is displayed when the user does not enter the Last Name
     Given Click on "Sauce Labs Onesie" item title
     When Click on Add Button and verify that "1" items have been added
@@ -70,6 +78,7 @@ Feature: Checkout Pages
     And Insert data in the First Name and Postal Code fields: "Diana", "400682"
     And Click on 'Continue'
     Then Verify that the "Error: Last Name is required" error message is displayed
+
 
   Scenario: An error message is displayed when the user does not enter the Postal Code
     Given Click on "Sauce Labs Onesie" item title

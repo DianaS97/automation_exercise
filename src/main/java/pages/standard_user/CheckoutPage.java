@@ -1,6 +1,5 @@
 package pages.standard_user;
 
-import managers.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,10 +10,11 @@ import utils.ActionUtil;
 
 import java.time.Duration;
 
+
 public class CheckoutPage {
 
-    Driver driver;
     WebDriverWait wait;
+
 
     @FindBy(xpath = "//span[@class='title']")
     private WebElement pageHeaderTitleElement;
@@ -196,6 +196,17 @@ public class CheckoutPage {
         wait.until(ExpectedConditions.visibilityOf(errorMessageElement));
         return errorMessageElement.getText();
     }
+
+    public void clickOnRemoveButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(removeButton));
+        removeButton.click();
+    }
+
+    public void clickOnRemoveButtonProductsPage(){
+
+    }
+
+
 
 
 }

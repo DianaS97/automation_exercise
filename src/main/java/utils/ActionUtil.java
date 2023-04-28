@@ -19,10 +19,6 @@ public class ActionUtil {
         action = new Actions(driver);
     }
 
-    public void click(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        element.click();
-    }
 
     public void doubleClick(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -32,16 +28,6 @@ public class ActionUtil {
     public void hover(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
         action.moveToElement(element).perform();
-    }
-
-    public void sendKeys(WebElement element, String keysToSend) {
-        wait.until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(keysToSend);
-    }
-
-    public String getText(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
-        return element.getText();
     }
 
     public String getAttributeValue(WebElement element, String attribute) {
