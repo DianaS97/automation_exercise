@@ -4,11 +4,13 @@ import io.cucumber.java.en.And;
 import managers.Driver;
 import org.testng.Assert;
 import pages.standard_user.CheckoutPage;
+import pages.standard_user.ProductsPage;
 
 public class CheckoutSteps extends Driver {
     Driver driver;
 
     CheckoutPage checkoutPage;
+    ProductsPage productsPage;
 
     public CheckoutSteps(Driver driver) {
         this.driver = driver;
@@ -76,9 +78,16 @@ public class CheckoutSteps extends Driver {
     public void clickOnFinish(String titleAssert, String messageAssert){
         checkoutPage = new CheckoutPage(driver.getDriver());
         checkoutPage.clickOnFinishButton();
-        Assert.assertTrue(checkoutPage.getCompleteOrderImage());
         Assert.assertTrue(checkoutPage.getCompleteOrderMessageTitle().contains(titleAssert));
         Assert.assertTrue(checkoutPage.getCompleteOrderMessageDescription().contains(messageAssert));
+    }
+
+    @And("Verify the name of the Page: {string} and the Green Tick image displayed")
+    public void verifyTheNameAndImageCheckoutCompletePage(String titlePage){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        Assert.assertTrue(checkoutPage.getCompleteOrderImage());
+        Assert.assertTrue(checkoutPage.getPageTitleHeaderText().contains(titlePage));
+
     }
 
     @And("Click on 'Back Home' and verify that the user is on {string} Page")
@@ -88,13 +97,23 @@ public class CheckoutSteps extends Driver {
         Assert.assertTrue(checkoutPage.getPageTitleHeaderText().contains(titlePageAssert));
     }
 
-    @And("Verify the Summary Info: {string}, {string}, {string}, {string} are present")
-    public void verifySummaryInfo(String paymentInformationLabel, String shippingInformationLabel, String priceTotalLabel, String totalLabel){
+    @And("Verify the Summary Info: {string}, {string}, {string}, {string}, {string} are present")
+    public void verifySummaryInfo(String paymentInformationLabel, String shippingInformationLabel, String subtotalValue, String taxValue, String finalTotal){
         checkoutPage = new CheckoutPage(driver.getDriver());
         Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(paymentInformationLabel));
         Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(shippingInformationLabel));
-        Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(priceTotalLabel));
-        Assert.assertTrue(checkoutPage.getSummaryInfoText().contains(totalLabel));
+        Assert.assertTrue(checkoutPage.getSubtotalText().contains(subtotalValue));
+        Assert.assertTrue(checkoutPage.getTaxText().contains(taxValue));
+        Assert.assertTrue(checkoutPage.getFinalTotalText().contains(finalTotal));
+    }
+
+    @And("Verify the Items information in the Checkout Overview: {string}, {string}, {string}, {string} are present")
+    public void verifyCartListInfo(String quantityItem, String itemTitle, String descriptionItem, String inventoryPrice){
+        checkoutPage = new CheckoutPage(driver.getDriver());
+        Assert.assertTrue(checkoutPage.getQuantityItemInfoText().contains(quantityItem));
+        Assert.assertTrue(checkoutPage.getItemTitleCartInfo().contains(itemTitle));
+        Assert.assertTrue(checkoutPage.getItemDescriptionInfoText().contains(descriptionItem));
+        Assert.assertTrue(checkoutPage.getInventoryItemPrice().contains(inventoryPrice));
     }
 
     @And("Verify that the {string} error message is displayed")

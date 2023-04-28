@@ -18,6 +18,15 @@ public class ProductsPage {
     WebDriverWait wait;
 
 
+    @FindBy(xpath = "//div[@class='app_logo']")
+    private WebElement appLogoSwagLabs;
+
+    @FindBy(xpath = "//div[@class='footer_copy']")
+    private WebElement copyRightsTextElement;
+
+    @FindBy(xpath = "//ul[@class='social']")
+    private WebElement socialMediasElement;
+
     @FindBy(xpath = "//button[@class='btn btn_primary btn_small btn_inventory']")
     private List<WebElement> addToCartButtonListElements;
 
@@ -73,6 +82,21 @@ public class ProductsPage {
     public ProductsPage(WebDriver driver) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(ActionUtil.DEFAULT_TIMEOUT));
         PageFactory.initElements(driver, this);
+    }
+
+    public String getAppLogoText() {
+        wait.until(ExpectedConditions.visibilityOf(appLogoSwagLabs));
+        return appLogoSwagLabs.getText();
+    }
+
+    public String getCopyRightsFooterText() {
+        wait.until(ExpectedConditions.visibilityOf(copyRightsTextElement));
+        return copyRightsTextElement.getText();
+    }
+
+    public String getTheSocialMediasText() {
+        wait.until(ExpectedConditions.visibilityOf(socialMediasElement));
+        return socialMediasElement.getText();
     }
 
 

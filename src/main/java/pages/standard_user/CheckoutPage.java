@@ -13,6 +13,7 @@ import java.time.Duration;
 
 public class CheckoutPage {
 
+    ActionUtil actionUtil;
     WebDriverWait wait;
 
 
@@ -44,8 +45,12 @@ public class CheckoutPage {
 
     //CHECKOUT: OVERVIEW PAGE
     //Verify the items in the cart: QTY, Description, Title of the item, Description of the item, Item's Price
-    @FindBy(xpath = "//div[@class='cart_quantity_label']")
-    private WebElement qtyElement;
+
+    @FindBy(xpath = "//div[@class='cart_list']")
+    private WebElement cartItemElement;
+
+    @FindBy(xpath = "//div[@class='cart_quantity']")
+    private WebElement qtyItemElement;
 
     @FindBy(xpath = "//div[@class='cart_desc_label']")
     private WebElement descriptionElement;
@@ -59,14 +64,19 @@ public class CheckoutPage {
     @FindBy(xpath = "//div[@class='inventory_item_price']")
     private WebElement priceItemElement;
 
+    @FindBy(xpath = "//div[@class='item_pricebar']")
+    private WebElement itemPriceBarElement;
+
     //Verify the Summary Info: Payment Information, Shipping Information, Price Total, Total
 
     @FindBy(xpath = "//div[@class='summary_info']")
     private WebElement summaryInfoBoxElement;
 
+    @FindBy(xpath = "//div[@class='summary_info']")
+    private WebElement summaryValueElement;
 
     @FindBy(xpath = "//div[@class='summary_subtotal_label']")
-    private WebElement itemTotalElement;
+    private WebElement subtotalElement;
 
     @FindBy(xpath = "//div[@class='summary_tax_label']")
     private WebElement taxElement;
@@ -187,8 +197,43 @@ public class CheckoutPage {
 
 
     public String getSummaryInfoText(){
-        wait.until(ExpectedConditions.visibilityOf(summaryInfoBoxElement));
-        return summaryInfoBoxElement.getText();
+        wait.until(ExpectedConditions.visibilityOf(summaryValueElement));
+        return summaryValueElement.getText();
+    }
+
+    public String getSubtotalText(){
+        wait.until(ExpectedConditions.visibilityOf(subtotalElement));
+        return subtotalElement.getText();
+    }
+
+    public String getTaxText(){
+        wait.until(ExpectedConditions.visibilityOf(taxElement));
+        return taxElement.getText();
+    }
+
+    public String getFinalTotalText(){
+        wait.until(ExpectedConditions.visibilityOf(finalTotalElement));
+        return finalTotalElement.getText();
+    }
+
+    public String getQuantityItemInfoText(){
+        wait.until(ExpectedConditions.visibilityOf(qtyItemElement));
+        return qtyItemElement.getText();
+    }
+
+    public String getItemTitleCartInfo(){
+        wait.until(ExpectedConditions.visibilityOf(titleItemElement));
+        return titleItemElement.getText();
+    }
+
+    public String getItemDescriptionInfoText(){
+        wait.until(ExpectedConditions.visibilityOf(descriptionItemElement));
+        return descriptionItemElement.getText();
+    }
+
+    public String getInventoryItemPrice(){
+        wait.until(ExpectedConditions.visibilityOf(priceItemElement));
+        return priceItemElement.getText();
     }
 
 

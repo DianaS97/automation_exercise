@@ -16,6 +16,26 @@ public class ProductsPageSteps extends Driver {
         this.driver = driver;
     }
 
+    @And("Verify the App's Logo {string} is displayed")
+    public void verifyTheAppLogo(String logoText) {
+        productsPage = new ProductsPage(driver.getDriver());
+        Assert.assertTrue(productsPage.getAppLogoText().contains(logoText));
+    }
+
+    @And("Verify the Copy Rights Text: {string} is displayed on the bottom Page")
+    public void verifyTheCopyRightsFooterText(String copyRightText) {
+        productsPage = new ProductsPage(driver.getDriver());
+        Assert.assertTrue(productsPage.getCopyRightsFooterText().contains(copyRightText));
+    }
+
+    @And("Check that the 3 social medias: {string}, {string}, {string} are displayed on the footer")
+    public void checkTheThreeSocialMedias(String twitterText, String facebookText, String linkedInText) {
+        productsPage = new ProductsPage(driver.getDriver());
+        Assert.assertTrue(productsPage.getTheSocialMediasText().contains(twitterText));
+        Assert.assertTrue(productsPage.getTheSocialMediasText().contains(facebookText));
+        Assert.assertTrue(productsPage.getTheSocialMediasText().contains(linkedInText));
+    }
+
     @And("Sort the items by {string}")
     public void sortTheItems(String value) {
         productsPage = new ProductsPage(driver.getDriver());
