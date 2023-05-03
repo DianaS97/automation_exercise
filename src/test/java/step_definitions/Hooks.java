@@ -39,7 +39,7 @@ public class Hooks {
                 //Convert web driver object to TakeScreenshot and Call getScreenshotAs method to create image file
                 File sourcePath = ((TakesScreenshot) driver.getDriver()).getScreenshotAs(OutputType.FILE);
                 //Move image file to new destination
-                File destinationPath = new File(System.getProperty("reports.dir") + "~/.git-ignores/" + screenShotName + "-" + timestamp.getTime() + "-" + simpleDateFormat + ".gitignore");
+                File destinationPath = new File(System.getProperty("user.dir") + "/reports/screenshots/" + screenShotName + "-" + timestamp.getTime() + "-" + simpleDateFormat + ".png");
                 FileUtils.copyFile(sourcePath, destinationPath);
             } catch (IOException ignored) {
             }
