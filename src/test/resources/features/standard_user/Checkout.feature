@@ -1,8 +1,8 @@
 Feature: Checkout Pages
 
   Background: Login as a standard_user
-    Given Open Secret Sauce
-    And Login as a standard_user
+    Given Open Secret Sauce in "chrome" browser
+    When Login as a "standard_user" user using "secret_sauce" password
     Then Click on the 'Login' button
     Then Verify that the user is on "Products" Page
 

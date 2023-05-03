@@ -3,7 +3,7 @@ package step_definitions.standard_user;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import managers.Driver;
-import org.testng.Assert;
+import org.junit.Assert;
 import pages.standard_user.ProductsPage;
 
 public class ProductsPageSteps extends Driver {

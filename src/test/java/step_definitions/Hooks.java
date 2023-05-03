@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class Hooks extends Driver {
+public class Hooks {
 
     private final Driver driver;
 
@@ -21,30 +21,27 @@ public class Hooks extends Driver {
         this.driver = driver;
     }
 
-    /**
-     * Set the default webdriver
-     */
-    @Before
-    public void initializeDriver() {
-        driver.setDriver();
-    }
+    /*@Before
+    public void initializeDriver(String selectBrowser) {
+        driver.setDriver(selectBrowser);
+    }*/
 
-    /**
-     * Saves a screenshot if a scenario fails
-     */
+
     @After(order = 1)
-    public void afterScenario(Scenario scenario) {
+    public void takePrintScreenReport(Scenario scenario) {
+
         if (scenario.isFailed()) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH_mm_ss").format(timestamp);
+            String simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH_mm_ss").format(timestamp);
+            String screenShotName = scenario.getName().replaceAll(" ", "_");
 
-            String screenshotName = scenario.getName().replaceAll(" ", "_");
             try {
+                //Convert web driver object to TakeScreenshot and Call getScreenshotAs method to create image file
                 File sourcePath = ((TakesScreenshot) driver.getDriver()).getScreenshotAs(OutputType.FILE);
-                File destinationPath = new File(System.getProperty("user.dir") + "/reports/screenshots/" + screenshotName + "-" + timestamp.getTime() + "-" + simpleDateFormat + ".png");
+                //Move image file to new destination
+                File destinationPath = new File(System.getProperty("reports.dir") + "~/.git-ignores/" + screenShotName + "-" + timestamp.getTime() + "-" + simpleDateFormat + ".gitignore");
                 FileUtils.copyFile(sourcePath, destinationPath);
             } catch (IOException ignored) {
-
             }
         }
     }

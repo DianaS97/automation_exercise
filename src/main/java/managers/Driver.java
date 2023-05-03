@@ -4,43 +4,43 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.picocontainer.Startable;
-import utils.ConfigurationReader;
+
 
 public class Driver implements Startable {
 
-    private  final ConfigurationReader configurationReader = new ConfigurationReader();
     private WebDriver driver;
 
     public synchronized WebDriver getDriver() {
         return driver;
     }
 
-    public void setDriver() {
-        String browser = configurationReader.getBrowser();
-        switch (browser) {
+    public void setDriver(String selectBrowser) {
+        switch (selectBrowser) {
             case "chrome":
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--safebrowsing-disable-download-protection");
                 chromeOptions.addArguments("--start-maximized");
-                chromeOptions.addArguments("--incognito");
                 chromeOptions.addArguments("--remote-allow-origins=*");
-                if (configurationReader.isHeadless().equalsIgnoreCase("true")) {
-                    chromeOptions.addArguments("--headless");
-                }
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(chromeOptions);
                 break;
             case "firefox":
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                if (configurationReader.isHeadless().equalsIgnoreCase("true")) {
-                    firefoxOptions.addArguments("--headless");
-                }
                 firefoxOptions.addArguments("--start-maximized");
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(firefoxOptions);
+                break;
+
+            case "edge":
+                EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--start-maximized");
+                edgeOptions.addArguments("--remote-allow-origins=*");
+                WebDriverManager.edgedriver().setup();
+                driver = new EdgeDriver(edgeOptions);
                 break;
             default:
                 WebDriverManager.chromedriver().setup();
@@ -49,9 +49,9 @@ public class Driver implements Startable {
         }
     }
 
-    public void startSecretSauce(){
-        String loginUrl = configurationReader.getLoginUrl();
-        driver.get(loginUrl);
+    public void startSecretSauce(String browser) {
+        setDriver(browser);
+        driver.get("https://www.saucedemo.com/");
     }
 
     public void start() {
@@ -63,3 +63,4 @@ public class Driver implements Startable {
     }
 
 }
+

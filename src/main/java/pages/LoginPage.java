@@ -1,19 +1,20 @@
 package pages;
 
+import managers.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.ActionUtil;
 
 import java.time.Duration;
 
-public class LoginPage {
+public class LoginPage extends Driver {
 
     WebDriverWait wait;
 
+    public static long DEFAULT_TIMEOUT = 10;
 
     @FindBy(xpath = "//input[@id='user-name']")
     private WebElement usernameInput;
@@ -29,58 +30,17 @@ public class LoginPage {
 
 
     public LoginPage(WebDriver driver) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(ActionUtil.DEFAULT_TIMEOUT));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
         PageFactory.initElements(driver, this);
     }
 
 
-    public void setStandardUser(String standardUser) {
+    public void loginAs(String userType, String password){
         wait.until(ExpectedConditions.visibilityOf(usernameInput));
-        usernameInput.sendKeys(standardUser);
-    }
-
-    public void setLockedOutUser(String lockedOutUser) {
-        wait.until(ExpectedConditions.visibilityOf(usernameInput));
-        usernameInput.sendKeys(lockedOutUser);
-    }
-
-    public void setProblemUser(String problemUser) {
-        wait.until(ExpectedConditions.visibilityOf(usernameInput));
-        usernameInput.sendKeys(problemUser);
-    }
-
-    public void setPerformanceGlitchUser(String performanceGlitchUser) {
-        wait.until(ExpectedConditions.visibilityOf(usernameInput));
-        usernameInput.sendKeys(performanceGlitchUser);
-    }
-
-
-    public void loginStandardUser(String standardUser, String password) {
-        setStandardUser(standardUser);
-        setPassword(password);
-
-    }
-
-    public void loginLockedOutUser(String lockedOutUser, String password) {
-        setLockedOutUser(lockedOutUser);
-        setPassword(password);
-    }
-
-    public void loginProblemUser(String problemUser, String password) {
-        setProblemUser(problemUser);
-        setPassword(password);
-    }
-
-    public void loginPerformanceGlitchUser(String performanceGlitchUser, String password) {
-        setPerformanceGlitchUser(performanceGlitchUser);
-        setPassword(password);
-    }
-
-
-    public void setPassword(String password) {
-        wait.until(ExpectedConditions.visibilityOf(passwordInput));
+        usernameInput.sendKeys(userType);
         passwordInput.sendKeys(password);
     }
+
 
     public void clickLogin() {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));

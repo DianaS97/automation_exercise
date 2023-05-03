@@ -2,7 +2,7 @@ package step_definitions.standard_user;
 
 import io.cucumber.java.en.And;
 import managers.Driver;
-import org.testng.Assert;
+import org.junit.Assert;
 import pages.standard_user.CheckoutPage;
 import pages.standard_user.ProductsPage;
 

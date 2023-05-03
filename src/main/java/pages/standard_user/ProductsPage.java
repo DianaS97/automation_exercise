@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.ActionUtil;
 
 import java.time.Duration;
 import java.util.List;
@@ -16,6 +15,8 @@ import java.util.List;
 public class ProductsPage {
 
     WebDriverWait wait;
+
+    public static long DEFAULT_TIMEOUT = 10;
 
 
     @FindBy(xpath = "//div[@class='app_logo']")
@@ -80,7 +81,7 @@ public class ProductsPage {
 
 
     public ProductsPage(WebDriver driver) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(ActionUtil.DEFAULT_TIMEOUT));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
         PageFactory.initElements(driver, this);
     }
 

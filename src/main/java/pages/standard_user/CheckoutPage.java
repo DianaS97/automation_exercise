@@ -6,15 +6,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.ActionUtil;
 
 import java.time.Duration;
 
 
 public class CheckoutPage {
 
-    ActionUtil actionUtil;
     WebDriverWait wait;
+
+    public static long DEFAULT_TIMEOUT = 10;
 
 
     @FindBy(xpath = "//span[@class='title']")
@@ -111,7 +111,7 @@ public class CheckoutPage {
     private WebElement completeImageElement;
 
     public CheckoutPage(WebDriver driver) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(ActionUtil.DEFAULT_TIMEOUT));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
         PageFactory.initElements(driver, this);
     }
 
